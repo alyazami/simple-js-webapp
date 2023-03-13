@@ -13,6 +13,6 @@ let pokemonlist = [
     {
         name: 'charmeleon',
         height: 1.1,
-        type: ['blaze', 'solar-power'],
+        type: ['blaze', 'solar-power']
     }
 ]
