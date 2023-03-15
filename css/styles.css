@@ -1,0 +1,23 @@
+/* style for the pokemon name and height */
+.pokemon {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
+  /* style for the message about big and tiny pokemon */
+  .pokemon-message {
+    font-weight: bold;
+    font-size: 1.2em;
+    font-size: 0.8em;
+    margin-left: 20px;
+    color: blue;
+  }
+  
+  /* style for the highlighted pokemon */
+  .pokemon-highlight {
+    background-color: yellow;
+    font-weight: bold;
+    font-size: 1.2em;
+  }
+  
