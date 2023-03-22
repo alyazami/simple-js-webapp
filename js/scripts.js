@@ -18,17 +18,17 @@ let pokemonList = [
 ]
 
 // printing pokemon name and height & hightlight the one with big and small hieght value 
-for (let i=0; i < pokemonList.length; i++){
-    let namePrinted = false;  // flag variable to keep track of whether name is already printed
-if (pokemonList[i].height > 6) {
-  document.write('<span class="pokemon-highlight">' + pokemonList[i].name + ' ('+ pokemonList[i].height +')</span>');
-  document.write('<span class="pokemon-message"> : Wow, that\'s big\!</span>' + '<br>');
-  namePrinted = true;
-} else if (pokemonList[i].height < 0.5) {
-  document.write('<span class="pokemon-highlight">' + pokemonList[i].name + ' ('+ pokemonList[i].height +')</span>');
+pokemonList.forEach(function(pokemon) {
+  let namePrinted = false;  // flag variable to keep track of whether name is already printed
+  if (pokemon.height > 6) {
+    document.write('<span class="pokemon-highlight">' + pokemon.name + ' ('+ pokemon.height +')</span>');
+    document.write('<span class="pokemon-message"> : Wow, that\'s big\!</span>' + '<br>');
+  } else if (pokemon.height < 0.5) {
+  document.write('<span class="pokemon-highlight">' + pokemon.name + ' ('+ pokemon.height +')</span>');
   document.write('<span class="pokemon-message"> : What a tiny pokemon\!</span>' + '<br>');
   namePrinted = true;
 } else {
-  document.write('<span class="pokemon">' + pokemonList[i].name + ' ('+ pokemonList[i].height +')</span>' + '<br>');
+  document.write('<span class="pokemon">' + pokemon.name + ' ('+ pokemon.height +')</span>' + '<br>');
 }
-}
+  
+});
