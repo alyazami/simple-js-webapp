@@ -19,17 +19,22 @@ let pokemonRepository = (function () {
     }
   ];
 
-  // Define a function to return the entire pokemonList array
+  // function to return the entire pokemonList array
   function getAll() {
     return pokemonList;
   }
 
-  // Define a function to add a new item to the pokemonList array
+  // function to add a new item to the pokemonList array
   function add(item) {
-    pokemonList.push(item);
+    // validate that item is an object with expected keys
+    if (typeof item === 'object' && Object.keys(item).every(key => ['name', 'height', 'type'].includes(key))) {
+      pokemonList.push(item);
+    } else {
+      console.error('Invalid input for adding to pokemonList:', item);
+    }
   }
 
-  // Return an object with the two functions as properties
+  // return an object with the two functions as properties
   return {
     getAll: getAll,
     add: add
@@ -57,3 +62,6 @@ pokemonRepository.add({
   height: 0.7,
   type: ['grass', 'poison']
 });
+
+// Trying to add a string to pokemonList results in an error
+pokemonRepository.add('Pidgey');
