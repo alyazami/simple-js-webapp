@@ -1,67 +1,78 @@
-// Create an Immediately Invoked Function Expression (IIFE) to wrap the pokemonList array
+// Create a self-invoking function that returns an object with methods
 let pokemonRepository = (function () {
-  let pokemonList = [
+   // Create an array of pokemon objects
+  let repository = [
     {
-        name: 'Barbasure',
-        height: 7,
-        type: ['grass', 'poison']
+      name: "Bulbasaur",
+      height: 0.7,
+      types: ["grass", "poison"],
     },
     {
-        name: 'Pikatchu',
-        height: 0.4,
-        type: ['static', 'lightningrod']
-
+      name: "Charizard",
+      height: 1.7,
+      types: ["fire", "flying"],
     },
     {
-        name: 'Charmeleon',
-        height: 1.1,
-        type: ['blaze', 'solar-power']
-    }
+      name: "Squirtle",
+      height: 1,
+      types: ["water"],
+    },
   ];
 
-  // function to return the entire pokemonList array
-  function getAll() {
-    return pokemonList;
-  }
-
-  // function to add a new item to the pokemonList array
-  function add(item) {
-    // validate that item is an object with expected keys
-    if (typeof item === 'object' && Object.keys(item).every(key => ['name', 'height', 'type'].includes(key))) {
-      pokemonList.push(item);
+    // Add a pokemon object to the repository array
+  function add(pokemon) {
+    if (
+      typeof pokemon === "object" &&
+      "name" in pokemon &&
+      "height" in pokemon &&
+      "types" in pokemon
+    ) {
+      repository.push(pokemon);
     } else {
-      console.error('Invalid input for adding to pokemonList:', item);
+      console.log("pokemon is not correct");
     }
   }
 
-  // return an object with the two functions as properties
+  // Return the repository array
+  function getAll() {
+    return repository;
+  }
+
+    // Add a list item for a pokemon object
+  function addListItem(pokemon){
+    let pokemonList = document.querySelector(".pokemon-list");
+    let listpokemon = document.createElement("li");
+    let button = document.createElement("button");
+    button.innerText = pokemon.name;
+    button.classList.add("button-class");
+    listpokemon.appendChild(button);
+    pokemonList.appendChild(listpokemon);
+     // Add a click event listener to the button that calls the showDetails() function with the pokemon object as a parameter
+    button.addEventListener("click", function () {
+      showDetails(pokemon);
+    });
+  }
+
+  // Log a pokemon object to the console
+  function showDetails(pokemon) {
+    console.log(pokemon);
+  }
+
+   // Return an object with the add(), getAll(), and addListItem() methods
   return {
+    add: add,
     getAll: getAll,
-    add: add
+    addListItem: addListItem
   };
 })();
 
-// Use the getAll function to retrieve the pokemonList array and iterate over it
-pokemonRepository.getAll().forEach(function(pokemon) {
-  let namePrinted = false;  // flag variable to keep track of whether name is already printed
-  if (pokemon.height > 6) {
-    document.write('<span class="pokemon-highlight">' + pokemon.name + ' ('+ pokemon.height +')</span>');
-    document.write('<span class="pokemon-message"> : Wow, that\'s big\!</span>' + '<br>');
-  } else if (pokemon.height < 0.5) {
-    document.write('<span class="pokemon-highlight">' + pokemon.name + ' ('+ pokemon.height +')</span>');
-    document.write('<span class="pokemon-message"> : What a tiny pokemon\!</span>' + '<br>');
-    namePrinted = true;
-  } else {
-    document.write('<span class="pokemon">' + pokemon.name + ' ('+ pokemon.height +')</span>' + '<br>');
-  }
-});
+// Add a new pokemon object to the repository array using the add() method
+pokemonRepository.add({ name: "Pikachu", height: 0.3, types: ["electric"] });
 
-// The pokemonList array cannot be accessed directly from outside the IIFE, but can be modified using the add function
-pokemonRepository.add({
-  name: 'Bulbasaur',
-  height: 0.7,
-  type: ['grass', 'poison']
-});
+// Log the repository array to the console using the getAll() method
+console.log(pokemonRepository.getAll());
 
-// Trying to add a string to pokemonList results in an error
-pokemonRepository.add('Pidgey');
+// Loop over the pokemon objects in the repository array using the getAll() method and add a list item for each one using the addListItem() method
+pokemonRepository.getAll().forEach(function (pokemon) {
+  pokemonRepository.addListItem(pokemon);
+});
