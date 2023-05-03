@@ -1,33 +1,16 @@
 // Create a self-invoking function that returns an object with methods
 let pokemonRepository = (function () {
    // Create an array of pokemon objects
-  let repository = [
-    {
-      name: "Bulbasaur",
-      height: 0.7,
-      types: ["grass", "poison"],
-    },
-    {
-      name: "Charizard",
-      height: 1.7,
-      types: ["fire", "flying"],
-    },
-    {
-      name: "Squirtle",
-      height: 1,
-      types: ["water"],
-    },
-  ];
+  let pokemonList = [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
     // Add a pokemon object to the repository array
   function add(pokemon) {
     if (
       typeof pokemon === "object" &&
-      "name" in pokemon &&
-      "height" in pokemon &&
-      "types" in pokemon
+      "name" in pokemon 
     ) {
-      repository.push(pokemon);
+      pokemonList.push(pokemon);
     } else {
       console.log("pokemon is not correct");
     }
@@ -35,7 +18,7 @@ let pokemonRepository = (function () {
 
   // Return the repository array
   function getAll() {
-    return repository;
+    return pokemonList;
   }
 
     // Add a list item for a pokemon object
@@ -53,26 +36,61 @@ let pokemonRepository = (function () {
     });
   }
 
+  function loadList() {
+    return fetch(apiUrl).then(function (response){
+      return response.json();
+    }).then(function(json){
+      json.results.forEach(function(item){
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+        console.log(pokemon);
+      });
+    }).catch(function (e){
+      console.error(e);
+    })
+  }
+
+  function loadDetails(item){
+    let url = item.detailsUrl;
+    return fetch(url).then(function(response){
+      return response.json();
+    }).then(function(details){
+      item.imageUrl = details.sprotes.front_default;
+      item.height = details.height;
+      item.types = details.types;
+    }).catch(function(e){
+      console.log(item)
+    });
+  }
+
+
   // Log a pokemon object to the console
-  function showDetails(pokemon) {
-    console.log(pokemon);
+  function showDetails(item) {
+    pokemonRepository.loadDetails(item).then(function(){
+      console.log(item);
+    });
   }
 
    // Return an object with the add(), getAll(), and addListItem() methods
   return {
     add: add,
     getAll: getAll,
-    addListItem: addListItem
+    addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails,
+    showDetails: showDetails,
   };
 })();
 
-// Add a new pokemon object to the repository array using the add() method
-pokemonRepository.add({ name: "Pikachu", height: 0.3, types: ["electric"] });
 
-// Log the repository array to the console using the getAll() method
-console.log(pokemonRepository.getAll());
+
 
 // Loop over the pokemon objects in the repository array using the getAll() method and add a list item for each one using the addListItem() method
-pokemonRepository.getAll().forEach(function (pokemon) {
-  pokemonRepository.addListItem(pokemon);
+pokemonRepository.loadList().then(function () {
+  pokemonRepository.getAll().forEach(function (pokemon) {
+   pokemonRepository.addListItem(pokemon);
+  });
 });
