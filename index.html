@@ -11,7 +11,7 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="dist/min.styles.css">
 
   <!-- Page title -->
   <title>Pokedex JS</title>
@@ -36,6 +36,8 @@
         <li class="nav-item active">
           <a class="nav-link" href="./index.html">Home<span class="sr-only">(current)</span></a>
         </li>
+      </ul>
+    </div>
  
     <!-- Search Form -->
     <form class="form-inline my-2 my-lg-0">
@@ -44,18 +46,18 @@
     </form>
   </nav>
 
-  <!-- Modal -->
-  <div class="modal fade" id="modal-container" tabindex="-1" role="dialog" aria-labelledby="modal-container-label"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header text-center">
-          <h2 class="col-12 modal-title text-center" id="modal-container">..loading..</h2>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+   <!-- Modal -->
+   <div class="modal fade" id="modal-container" tabindex="-1" role="dialog" aria-labelledby="modal-container-label"
+   aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <!-- Modal Header -->
+       <div class="modal-header text-center">
+         <h2 class="col-12 modal-title text-center" id="modal-title">..loading..</h2>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
         
         <!-- Modal Body -->
         <div class="modal-body text-center">
@@ -88,7 +90,7 @@
   <script src="js/fetch-polyfill.js"></script>
   
   <!-- Custom Script -->
-  <script src="js/scripts.js"></script>
+  <script src="dist/min.script.js"></script>
   
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
