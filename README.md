@@ -22,4 +22,4 @@ The application uses the PokeAPI (https://pokeapi.co/) to obtain information abo
 
 In the following link you can see the application:
 
-(https://acarecor.github.io/PokeDex/)
+(https://alyazami.github.io/simple-js-webapp/)
